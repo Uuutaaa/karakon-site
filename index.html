@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カラコン大きさ診断</title>
+</head>
+<body>
+    <h1>カラコン大きさ診断</h1>
+    <p>あなたの目にぴったりなカラコンサイズを黄金比を使って計算するよ！</p>
+
+    <p>目の黄金比は、白目：黒目：白目=0.5：1：0.5だよ</p>
+
+    <form id="size">
+        <label for="width">目頭から目尻までの長さ (mm):</label>
+        <input type="number" id="width" name="width" required>
+        <br>
+        <button type="submit">診断する</button>
+
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("size").addEventListener("submit", function(event){
+            event.preventDefault();
+            const width = parseFloat(document.getElementById("width").value);
+            if(isNaN(width) || width <= 0){
+                result.textContent = "正しい数値を入力してね！";
+                return;
+            }
+
+            //黄金比(白目：黒目：白目＝0.5：1：0.5)
+            const eyeRatio = 2;
+            const irisSize = width * (1 / eyeRatio);
+
+            //カラコンのサイズ目安(ちょい盛り)
+            const recommended = irisSize; //ちょい盛りは黒目サイズより2mm大きい
+
+            result.innerHTML = 
+            "👁️ 黒目の理想サイズ：約 " + irisSize.toFixed(1) + " mm<br> " + 
+            "✨ おすすめカラコンサイズ：約 " + recommended.toFixed(1) + " mm";
+        });
+    </script>
+</body>
+</html>
